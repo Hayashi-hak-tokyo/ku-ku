@@ -1,468 +1,301 @@
-{\rtf1\ansi\ansicpg932\cocoartf2761
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset128 HiraginoSans-W3;\f2\fnil\fcharset0 AppleColorEmoji;
-}
-{\colortbl;\red255\green255\blue255;\red70\green137\blue204;\red23\green24\blue24;\red140\green211\blue254;
-\red202\green202\blue202;\red109\green109\blue109;\red194\green126\blue101;\red212\green212\blue212;\red113\green192\blue131;
-\red109\green115\blue120;\red167\green197\blue152;\red183\green111\blue247;\red246\green124\blue48;\red54\green192\blue160;
-\red76\green167\blue134;}
-{\*\expandedcolortbl;;\cssrgb\c33725\c61176\c83922;\cssrgb\c11765\c12157\c12549;\cssrgb\c61176\c86275\c99608;
-\cssrgb\c83137\c83137\c83137;\cssrgb\c50196\c50196\c50196;\cssrgb\c80784\c56863\c47059;\cssrgb\c86275\c86275\c86275;\cssrgb\c50588\c78824\c58431;
-\cssrgb\c50196\c52549\c54510;\cssrgb\c70980\c80784\c65882;\cssrgb\c77255\c54118\c97647;\cssrgb\c98039\c56471\c24314;\cssrgb\c23922\c78824\c69020;
-\cssrgb\c35686\c70588\c59608;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11820\viewh8700\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九九クイズ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mochiy Pop One', sans-serif; /* ポップなフォント */
+            background-color: #f0f9ff; /* 明るい水色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 20px; /* 角を丸く */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .question-area {
+            font-size: 2.5rem; /* 問題の文字を大きく */
+            margin-bottom: 2rem;
+            color: #2c5282; /* 濃い青色 */
+            padding: 1rem;
+            background-color: #ebf8ff; /* 薄い青色の背景 */
+            border-radius: 10px;
+        }
+        .options button {
+            font-size: 1.5rem; /* 選択肢の文字を大きく */
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .options button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .options button.correct-answer-style { /* 正解選択時のスタイル */
+            background-color: #48bb78 !important; /* 緑色 */
+            color: white !important;
+            border-color: #38a169 !important;
+        }
+        .options button.wrong-answer-style { /* 不正解選択時のスタイル */
+            background-color: #f56565 !important; /* 赤色 */
+            color: white !important;
+            border-color: #c53030 !important;
+        }
+        .feedback {
+            font-size: 1.8rem; /* フィードバックの文字を大きく */
+            margin-top: 1.5rem;
+            min-height: 50px; /* 高さを確保してレイアウト崩れを防ぐ */
+        }
+        .score {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #4a5568; /* やや濃い灰色 */
+        }
+        .next-button {
+            font-size: 1.2rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            background-color: #4299e1; /* 青色 */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        .next-button:hover {
+            background-color: #3182ce; /* 少し濃い青色 */
+        }
+        .next-button:disabled {
+            background-color: #a0aec0; /* 灰色 (非活性時) */
+            cursor: not-allowed;
+        }
+        .options button.default-style {
+            background-color: #63b3ed; /* 通常時の選択肢の色 (青系) */
+            color: white;
+        }
+        .options button.default-style:hover {
+            background-color: #4299e1;
+        }
 
-\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 <!DOCTYPE\cf4 \strokec4  html\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 <\cf2 \strokec2 html\cf5 \strokec5  \cf4 \strokec4 lang\cf6 \strokec6 =\cf7 \strokec7 "ja"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cf6 \cb3 \strokec6 <\cf2 \strokec2 head\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3     \cf6 \strokec6 <\cf2 \strokec2 meta\cf5 \strokec5  \cf4 \strokec4 charset\cf6 \strokec6 =\cf7 \strokec7 "UTF-8"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 meta\cf5 \strokec5  \cf4 \strokec4 name\cf6 \strokec6 =\cf7 \strokec7 "viewport"\cf5 \strokec5  \cf4 \strokec4 content\cf6 \strokec6 =\cf7 \strokec7 "width=device-width, initial-scale=1.0"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 title\cf6 \strokec6 >
-\f1 \cf5 \strokec5 \'8b\'e3\'8b\'e3\'83\'4e\'83\'43\'83\'59
-\f0 \cf6 \strokec6 </\cf2 \strokec2 title\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 script\cf5 \strokec5  \cf4 \strokec4 src\cf6 \strokec6 =\cf7 \strokec7 "https://cdn.tailwindcss.com"\cf6 \strokec6 ></\cf2 \strokec2 script\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 link\cf5 \strokec5  \cf4 \strokec4 href\cf6 \strokec6 =\cf7 \strokec7 "https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap"\cf5 \strokec5  \cf4 \strokec4 rel\cf6 \strokec6 =\cf7 \strokec7 "stylesheet"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 style\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 body\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-family:\cf5 \strokec5  \cf9 \strokec9 'Mochiy Pop One'\cf8 \strokec8 ,\cf5 \strokec5  \cf7 \strokec7 sans-serif\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'83\'7c\'83\'62\'83\'76\'82\'c8\'83\'74\'83\'48\'83\'93\'83\'67
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #f0f9ff\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'96\'be\'82\'e9\'82\'a2\'90\'85\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 display:\cf5 \strokec5  \cf7 \strokec7 flex\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 justify-content:\cf5 \strokec5  \cf7 \strokec7 center\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 align-items:\cf5 \strokec5  \cf7 \strokec7 center\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 min-height:\cf5 \strokec5  \cf11 \strokec11 100vh\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  #333\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .quiz-container\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #ffffff\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 padding:\cf5 \strokec5  \cf11 \strokec11 2rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-radius:\cf5 \strokec5  \cf11 \strokec11 20px\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'8a\'70\'82\'f0\'8a\'db\'82\'ad
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 box-shadow:\cf5 \strokec5  \cf11 \strokec11 0\cf5 \strokec5  \cf11 \strokec11 10px\cf5 \strokec5  \cf11 \strokec11 25px\cf5 \strokec5  \cf7 \strokec7 rgba(\cf11 \strokec11 0\cf8 \strokec8 ,\cf5 \strokec5  \cf11 \strokec11 0\cf8 \strokec8 ,\cf5 \strokec5  \cf11 \strokec11 0\cf8 \strokec8 ,\cf5 \strokec5  \cf11 \strokec11 0.1\cf7 \strokec7 )\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 width:\cf5 \strokec5  \cf11 \strokec11 90%\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 max-width:\cf5 \strokec5  \cf11 \strokec11 500px\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 text-align:\cf5 \strokec5  \cf7 \strokec7 center\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .question-area\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-size:\cf5 \strokec5  \cf11 \strokec11 2.5rem\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'96\'e2\'91\'e8\'82\'cc\'95\'b6\'8e\'9a\'82\'f0\'91\'e5\'82\'ab\'82\'ad
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 margin-bottom:\cf5 \strokec5  \cf11 \strokec11 2rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  #2c5282\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'94\'5a\'82\'a2\'90\'c2\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 padding:\cf5 \strokec5  \cf11 \strokec11 1rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #ebf8ff\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'94\'96\'82\'a2\'90\'c2\'90\'46\'82\'cc\'94\'77\'8c\'69
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-radius:\cf5 \strokec5  \cf11 \strokec11 10px\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-size:\cf5 \strokec5  \cf11 \strokec11 1.5rem\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'91\'49\'91\'f0\'8e\'88\'82\'cc\'95\'b6\'8e\'9a\'82\'f0\'91\'e5\'82\'ab\'82\'ad
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 width:\cf5 \strokec5  \cf11 \strokec11 100%\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 padding:\cf5 \strokec5  \cf11 \strokec11 1rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 margin-bottom:\cf5 \strokec5  \cf11 \strokec11 1rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-radius:\cf5 \strokec5  \cf11 \strokec11 10px\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border:\cf5 \strokec5  \cf11 \strokec11 2px\cf5 \strokec5  \cf7 \strokec7 solid\cf5 \strokec5  \cf7 \strokec7 transparent\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 transition:\cf5 \strokec5  \cf7 \strokec7 all\cf5 \strokec5  \cf11 \strokec11 0.3s\cf5 \strokec5  \cf7 \strokec7 ease\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 cursor:\cf5 \strokec5  \cf7 \strokec7 pointer\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button:hover\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 transform:\cf5 \strokec5  \cf7 \strokec7 translateY(\cf11 \strokec11 -3px\cf7 \strokec7 )\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 box-shadow:\cf5 \strokec5  \cf11 \strokec11 0\cf5 \strokec5  \cf11 \strokec11 4px\cf5 \strokec5  \cf11 \strokec11 10px\cf5 \strokec5  \cf7 \strokec7 rgba(\cf11 \strokec11 0\cf8 \strokec8 ,\cf11 \strokec11 0\cf8 \strokec8 ,\cf11 \strokec11 0\cf8 \strokec8 ,\cf11 \strokec11 0.1\cf7 \strokec7 )\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button.correct-answer-style\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'90\'b3\'89\'f0\'91\'49\'91\'f0\'8e\'9e\'82\'cc\'83\'58\'83\'5e\'83\'43\'83\'8b
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #48bb78 \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'97\'ce\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  \cf7 \strokec7 white\cf5 \strokec5  \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-color:\cf5 \strokec5  #38a169 \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button.wrong-answer-style\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'95\'73\'90\'b3\'89\'f0\'91\'49\'91\'f0\'8e\'9e\'82\'cc\'83\'58\'83\'5e\'83\'43\'83\'8b
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #f56565 \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'90\'d4\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  \cf7 \strokec7 white\cf5 \strokec5  \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-color:\cf5 \strokec5  #c53030 \cf12 \strokec12 !important\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .feedback\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-size:\cf5 \strokec5  \cf11 \strokec11 1.8rem\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'83\'74\'83\'42\'81\'5b\'83\'68\'83\'6f\'83\'62\'83\'4e\'82\'cc\'95\'b6\'8e\'9a\'82\'f0\'91\'e5\'82\'ab\'82\'ad
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 margin-top:\cf5 \strokec5  \cf11 \strokec11 1.5rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 min-height:\cf5 \strokec5  \cf11 \strokec11 50px\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'8d\'82\'82\'b3\'82\'f0\'8a\'6d\'95\'db\'82\'b5\'82\'c4\'83\'8c\'83\'43\'83\'41\'83\'45\'83\'67\'95\'f6\'82\'ea\'82\'f0\'96\'68\'82\'ae
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .score\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-size:\cf5 \strokec5  \cf11 \strokec11 1.2rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 margin-top:\cf5 \strokec5  \cf11 \strokec11 1rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  #4a5568\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'82\'e2\'82\'e2\'94\'5a\'82\'a2\'8a\'44\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .next-button\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 font-size:\cf5 \strokec5  \cf11 \strokec11 1.2rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 padding:\cf5 \strokec5  \cf11 \strokec11 0.8rem\cf5 \strokec5  \cf11 \strokec11 1.5rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border-radius:\cf5 \strokec5  \cf11 \strokec11 8px\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #4299e1\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'90\'c2\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  \cf7 \strokec7 white\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 border:\cf5 \strokec5  \cf7 \strokec7 none\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 cursor:\cf5 \strokec5  \cf7 \strokec7 pointer\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 transition:\cf5 \strokec5  \cf7 \strokec7 background-color\cf5 \strokec5  \cf11 \strokec11 0.3s\cf5 \strokec5  \cf7 \strokec7 ease\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 margin-top:\cf5 \strokec5  \cf11 \strokec11 1.5rem\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .next-button:hover\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #3182ce\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'8f\'ad\'82\'b5\'94\'5a\'82\'a2\'90\'c2\'90\'46
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .next-button:disabled\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #a0aec0\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'8a\'44\'90\'46
-\f0  (
-\f1 \'94\'f1\'8a\'88\'90\'ab\'8e\'9e
-\f0 ) */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 cursor:\cf5 \strokec5  \cf7 \strokec7 not-allowed\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button.default-style\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #63b3ed\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 /* 
-\f1 \'92\'ca\'8f\'ed\'8e\'9e\'82\'cc\'91\'49\'91\'f0\'8e\'88\'82\'cc\'90\'46
-\f0  (
-\f1 \'90\'c2\'8c\'6e
-\f0 ) */\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 color:\cf5 \strokec5  \cf7 \strokec7 white\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .options\cf5 \strokec5  \cf2 \strokec2 button.default-style:hover\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 background-color:\cf5 \strokec5  #4299e1\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf10 \strokec10 /* 
-\f1 \'8c\'f8\'89\'ca\'89\'b9\'97\'70\'82\'cc\'94\'f1\'95\'5c\'8e\'a6\'97\'76\'91\'66
-\f0  */\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 .audio-container\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf4 \strokec4 display:\cf5 \strokec5  \cf7 \strokec7 none\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 </\cf2 \strokec2 style\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 </\cf2 \strokec2 head\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cf6 \cb3 \strokec6 <\cf2 \strokec2 body\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3     \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "quiz-container"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 h1\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "text-4xl font-bold mb-8 text-blue-700"\cf6 \strokec6 >
-\f1 \cf5 \strokec5 \'8b\'e3\'8b\'e3\'83\'4e\'83\'43\'83\'59\'83\'60\'83\'83\'83\'8c\'83\'93\'83\'57\'81\'49
-\f0 \cf6 \strokec6 </\cf2 \strokec2 h1\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "question-area"\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "question-area"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "options"\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "options grid grid-cols-1 gap-4"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "feedback"\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "feedback"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "score"\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "score"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3             
-\f1 \'83\'58\'83\'52\'83\'41
-\f0 : 0 / 0\cb1 \
-\cb3         \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 button\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "next-button"\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "next-button"\cf5 \strokec5  \cf4 \strokec4 disabled\cf6 \strokec6 >
-\f1 \cf5 \strokec5 \'82\'c2\'82\'ac\'82\'cc\'82\'e0\'82\'f1\'82\'be\'82\'a2\'82\'d6
-\f0 \cf6 \strokec6 </\cf2 \strokec2 button\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 div\cf5 \strokec5  \cf4 \strokec4 class\cf6 \strokec6 =\cf7 \strokec7 "audio-container"\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 <\cf2 \strokec2 audio\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "correct-sound"\cf5 \strokec5  \cf4 \strokec4 src\cf6 \strokec6 =\cf7 \strokec7 ""\cf6 \strokec6 ></\cf2 \strokec2 audio\cf6 \strokec6 >\cf5 \strokec5  \cf6 \strokec6 <\cf2 \strokec2 audio\cf5 \strokec5  \cf4 \strokec4 id\cf6 \strokec6 =\cf7 \strokec7 "wrong-sound"\cf5 \strokec5  \cf4 \strokec4 src\cf6 \strokec6 =\cf7 \strokec7 ""\cf6 \strokec6 ></\cf2 \strokec2 audio\cf6 \strokec6 >\cf5 \strokec5  \cf6 \strokec6 </\cf2 \strokec2 div\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\
-\cb3     \cf6 \strokec6 <\cf2 \strokec2 script\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  questionArea \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'question-area'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  optionsContainer \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'options'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  feedbackArea \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'feedback'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  scoreArea \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'score'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  nextButton \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'next-button'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  correctSound \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'correct-sound'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 const\cf5 \strokec5  wrongSound \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 getElementById\cf8 \strokec8 (\cf9 \strokec9 'wrong-sound'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf12 \strokec12 let\cf5 \strokec5  currentQuestion \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 \{\};\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 let\cf5 \strokec5  score \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 let\cf5 \strokec5  questionsAttempted \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 let\cf5 \strokec5  answerSelected \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 false\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'89\'f1\'93\'9a\'82\'aa\'91\'49\'91\'f0\'82\'b3\'82\'ea\'82\'bd\'82\'a9\'82\'c7\'82\'a4\'82\'a9\'82\'f0\'92\'c7\'90\'d5
-\f0 \cf5 \cb1 \strokec5 \
-\
-\cb3         \cf10 \strokec10 // 
-\f1 \'8c\'f8\'89\'ca\'89\'b9\'82\'cc\'90\'b6\'90\'ac
-\f0  (Tone.js
-\f1 \'82\'cc\'91\'e3\'91\'d6\'82\'c6\'82\'b5\'82\'c4
-\f0 Data URI
-\f1 \'82\'f0\'8e\'67\'97\'70
-\f0 )\cf5 \cb1 \strokec5 \
-\cb3         \cf12 \strokec12 function\cf5 \strokec5  generateBeepDataURI\cf8 \strokec8 (\cf5 \strokec5 frequency \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 440\cf8 \strokec8 ,\cf5 \strokec5  duration \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0.1\cf8 \strokec8 ,\cf5 \strokec5  type \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 "sine"\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  sampleRate \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 44100\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  numSamples \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf5 \strokec5 sampleRate \cf8 \strokec8 *\cf5 \strokec5  duration\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  audioContext \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 new\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 window\cf8 \strokec8 .\cf14 \strokec14 AudioContext\cf5 \strokec5  \cf8 \strokec8 ||\cf5 \strokec5  window\cf8 \strokec8 .\cf5 \strokec5 webkitAudioContext\cf8 \strokec8 )();\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  buffer \cf8 \strokec8 =\cf5 \strokec5  audioContext\cf8 \strokec8 .\cf5 \strokec5 createBuffer\cf8 \strokec8 (\cf13 \strokec13 1\cf8 \strokec8 ,\cf5 \strokec5  numSamples\cf8 \strokec8 ,\cf5 \strokec5  sampleRate\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  data \cf8 \strokec8 =\cf5 \strokec5  buffer\cf8 \strokec8 .\cf5 \strokec5 getChannelData\cf8 \strokec8 (\cf13 \strokec13 0\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3             \cf12 \strokec12 for\cf5 \strokec5  \cf8 \strokec8 (\cf12 \strokec12 let\cf5 \strokec5  i \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ;\cf5 \strokec5  i \cf8 \strokec8 <\cf5 \strokec5  numSamples\cf8 \strokec8 ;\cf5 \strokec5  i\cf8 \strokec8 ++)\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  time \cf8 \strokec8 =\cf5 \strokec5  i \cf8 \strokec8 /\cf5 \strokec5  sampleRate\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 type \cf8 \strokec8 ===\cf5 \strokec5  \cf9 \strokec9 "sine"\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     data\cf8 \strokec8 [\cf5 \strokec5 i\cf8 \strokec8 ]\cf5 \strokec5  \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 sin\cf8 \strokec8 (\cf13 \strokec13 2\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf14 \strokec14 PI\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  frequency \cf8 \strokec8 *\cf5 \strokec5  time\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 0.5\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'55\'95\'9d\'82\'f0
-\f0 0.5
-\f1 \'82\'c9
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \strokec5  \cf12 \strokec12 else\cf5 \strokec5  \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 type \cf8 \strokec8 ===\cf5 \strokec5  \cf9 \strokec9 "square"\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     data\cf8 \strokec8 [\cf5 \strokec5 i\cf8 \strokec8 ]\cf5 \strokec5  \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 (\cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 sin\cf8 \strokec8 (\cf13 \strokec13 2\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf14 \strokec14 PI\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  frequency \cf8 \strokec8 *\cf5 \strokec5  time\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 >\cf5 \strokec5  \cf13 \strokec13 0\cf5 \strokec5  \cf8 \strokec8 ?\cf5 \strokec5  \cf13 \strokec13 1\cf5 \strokec5  \cf8 \strokec8 :\cf5 \strokec5  \cf8 \strokec8 -\cf13 \strokec13 1\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 0.3\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'55\'95\'9d\'82\'f0
-\f0 0.3
-\f1 \'82\'c9
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \strokec5  \cf12 \strokec12 else\cf5 \strokec5  \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 type \cf8 \strokec8 ===\cf5 \strokec5  \cf9 \strokec9 "sawtooth"\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     data\cf8 \strokec8 [\cf5 \strokec5 i\cf8 \strokec8 ]\cf5 \strokec5  \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 (\cf13 \strokec13 2\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 time \cf8 \strokec8 *\cf5 \strokec5  frequency \cf8 \strokec8 -\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf13 \strokec13 0.5\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  time \cf8 \strokec8 *\cf5 \strokec5  frequency\cf8 \strokec8 )))\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 0.3\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'55\'95\'9d\'82\'f0
-\f0 0.3
-\f1 \'82\'c9
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \strokec5  \cf12 \strokec12 else\cf5 \strokec5  \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 type \cf8 \strokec8 ===\cf5 \strokec5  \cf9 \strokec9 "triangle"\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     data\cf8 \strokec8 [\cf5 \strokec5 i\cf8 \strokec8 ]\cf5 \strokec5  \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 (\cf13 \strokec13 2\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 abs\cf8 \strokec8 (\cf13 \strokec13 2\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 time \cf8 \strokec8 *\cf5 \strokec5  frequency \cf8 \strokec8 -\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf13 \strokec13 0.5\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  time \cf8 \strokec8 *\cf5 \strokec5  frequency\cf8 \strokec8 )))\cf5 \strokec5  \cf8 \strokec8 -\cf13 \strokec13 1\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 0.3\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'55\'95\'9d\'82\'f0
-\f0 0.3
-\f1 \'82\'c9
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             \cb1 \
-\cb3             \cf10 \strokec10 // WAV
-\f1 \'83\'77\'83\'62\'83\'5f\'81\'5b\'82\'cc\'8d\'ec\'90\'ac
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  writeString \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 view\cf8 \strokec8 ,\cf5 \strokec5  offset\cf8 \strokec8 ,\cf5 \strokec5  string\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 =>\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 for\cf5 \strokec5  \cf8 \strokec8 (\cf12 \strokec12 let\cf5 \strokec5  i \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ;\cf5 \strokec5  i \cf8 \strokec8 <\cf5 \strokec5  string\cf8 \strokec8 .\cf5 \strokec5 length\cf8 \strokec8 ;\cf5 \strokec5  i\cf8 \strokec8 ++)\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     view\cf8 \strokec8 .\cf5 \strokec5 setUint8\cf8 \strokec8 (\cf5 \strokec5 offset \cf8 \strokec8 +\cf5 \strokec5  i\cf8 \strokec8 ,\cf5 \strokec5  string\cf8 \strokec8 .\cf5 \strokec5 charCodeAt\cf8 \strokec8 (\cf5 \strokec5 i\cf8 \strokec8 ));\cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \};\cf5 \cb1 \strokec5 \
-\
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  bufferLength \cf8 \strokec8 =\cf5 \strokec5  buffer\cf8 \strokec8 .\cf5 \strokec5 length \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 2\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 16-bit PCM\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  headerLength \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 44\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  totalLength \cf8 \strokec8 =\cf5 \strokec5  headerLength \cf8 \strokec8 +\cf5 \strokec5  bufferLength\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  wavBuffer \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 new\cf5 \strokec5  \cf14 \strokec14 ArrayBuffer\cf8 \strokec8 (\cf5 \strokec5 totalLength\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  view \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 new\cf5 \strokec5  \cf14 \strokec14 DataView\cf8 \strokec8 (\cf5 \strokec5 wavBuffer\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3             writeString\cf8 \strokec8 (\cf5 \strokec5 view\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 'RIFF'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint32\cf8 \strokec8 (\cf13 \strokec13 4\cf8 \strokec8 ,\cf5 \strokec5  totalLength \cf8 \strokec8 -\cf5 \strokec5  \cf13 \strokec13 8\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             writeString\cf8 \strokec8 (\cf5 \strokec5 view\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 8\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 'WAVE'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             writeString\cf8 \strokec8 (\cf5 \strokec5 view\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 12\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 'fmt '\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint32\cf8 \strokec8 (\cf13 \strokec13 16\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 16\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // Subchunk1Size (16 for PCM)\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint16\cf8 \strokec8 (\cf13 \strokec13 20\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5   \cf10 \strokec10 // AudioFormat (1 for PCM)\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint16\cf8 \strokec8 (\cf13 \strokec13 22\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5   \cf10 \strokec10 // NumChannels (1 for mono)\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint32\cf8 \strokec8 (\cf13 \strokec13 24\cf8 \strokec8 ,\cf5 \strokec5  sampleRate\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // SampleRate\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint32\cf8 \strokec8 (\cf13 \strokec13 28\cf8 \strokec8 ,\cf5 \strokec5  sampleRate \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 2\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // ByteRate (SampleRate * NumChannels * BitsPerSample/8)\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint16\cf8 \strokec8 (\cf13 \strokec13 32\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 2\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5   \cf10 \strokec10 // BlockAlign (NumChannels * BitsPerSample/8)\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint16\cf8 \strokec8 (\cf13 \strokec13 34\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 16\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // BitsPerSample (16-bit)\cf5 \cb1 \strokec5 \
-\cb3             writeString\cf8 \strokec8 (\cf5 \strokec5 view\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 36\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 'data'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             view\cf8 \strokec8 .\cf5 \strokec5 setUint32\cf8 \strokec8 (\cf13 \strokec13 40\cf8 \strokec8 ,\cf5 \strokec5  bufferLength\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3             \cf10 \strokec10 // PCM
-\f1 \'83\'66\'81\'5b\'83\'5e\'8f\'91\'82\'ab\'8d\'9e\'82\'dd
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 let\cf5 \strokec5  offset \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 44\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 for\cf5 \strokec5  \cf8 \strokec8 (\cf12 \strokec12 let\cf5 \strokec5  i \cf8 \strokec8 =\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 ;\cf5 \strokec5  i \cf8 \strokec8 <\cf5 \strokec5  buffer\cf8 \strokec8 .\cf5 \strokec5 length\cf8 \strokec8 ;\cf5 \strokec5  i\cf8 \strokec8 ++,\cf5 \strokec5  offset \cf8 \strokec8 +=\cf5 \strokec5  \cf13 \strokec13 2\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  s \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 max\cf8 \strokec8 (-\cf13 \strokec13 1\cf8 \strokec8 ,\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 min\cf8 \strokec8 (\cf13 \strokec13 1\cf8 \strokec8 ,\cf5 \strokec5  data\cf8 \strokec8 [\cf5 \strokec5 i\cf8 \strokec8 ]));\cf5 \cb1 \strokec5 \
-\cb3                 view\cf8 \strokec8 .\cf5 \strokec5 setInt16\cf8 \strokec8 (\cf5 \strokec5 offset\cf8 \strokec8 ,\cf5 \strokec5  s \cf8 \strokec8 <\cf5 \strokec5  \cf13 \strokec13 0\cf5 \strokec5  \cf8 \strokec8 ?\cf5 \strokec5  s \cf8 \strokec8 *\cf5 \strokec5  \cf15 \strokec15 0x8000\cf5 \strokec5  \cf8 \strokec8 :\cf5 \strokec5  s \cf8 \strokec8 *\cf5 \strokec5  \cf15 \strokec15 0x7FFF\cf8 \strokec8 ,\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             \cb1 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  blob \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 new\cf5 \strokec5  \cf14 \strokec14 Blob\cf8 \strokec8 ([\cf5 \strokec5 view\cf8 \strokec8 ],\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \strokec5  type\cf8 \strokec8 :\cf5 \strokec5  \cf9 \strokec9 'audio/wav'\cf5 \strokec5  \cf8 \strokec8 \});\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 return\cf5 \strokec5  \cf14 \strokec14 URL\cf8 \strokec8 .\cf5 \strokec5 createObjectURL\cf8 \strokec8 (\cf5 \strokec5 blob\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf10 \strokec10 // 
-\f1 \'8c\'f8\'89\'ca\'89\'b9\'82\'f0\'90\'dd\'92\'e8
-\f0 \cf5 \cb1 \strokec5 \
-\cb3         correctSound\cf8 \strokec8 .\cf5 \strokec5 src \cf8 \strokec8 =\cf5 \strokec5  generateBeepDataURI\cf8 \strokec8 (\cf13 \strokec13 660\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 0.2\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 "triangle"\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8f\'ad\'82\'b5\'8d\'82\'82\'df\'82\'cc\'89\'b9
-\f0 \cf5 \cb1 \strokec5 \
-\cb3         wrongSound\cf8 \strokec8 .\cf5 \strokec5 src \cf8 \strokec8 =\cf5 \strokec5  generateBeepDataURI\cf8 \strokec8 (\cf13 \strokec13 220\cf8 \strokec8 ,\cf5 \strokec5  \cf13 \strokec13 0.3\cf8 \strokec8 ,\cf5 \strokec5  \cf9 \strokec9 "sawtooth"\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'92\'e1\'82\'df\'82\'cc\'83\'75\'83\'55\'81\'5b\'89\'b9
-\f0 \cf5 \cb1 \strokec5 \
-\
-\
-\cb3         \cf12 \strokec12 function\cf5 \strokec5  generateQuestion\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             answerSelected \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 false\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'56\'82\'b5\'82\'a2\'96\'e2\'91\'e8\'82\'c5\'83\'8a\'83\'5a\'83\'62\'83\'67
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  num1 \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 random\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 9\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 1
-\f1 \'82\'a9\'82\'e7
-\f0 9
-\f1 \'82\'dc\'82\'c5\'82\'cc\'90\'94
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  num2 \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 random\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 9\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 1
-\f1 \'82\'a9\'82\'e7
-\f0 9
-\f1 \'82\'dc\'82\'c5\'82\'cc\'90\'94
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  correctAnswer \cf8 \strokec8 =\cf5 \strokec5  num1 \cf8 \strokec8 *\cf5 \strokec5  num2\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\
-\cb3             currentQuestion \cf8 \strokec8 =\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 num1\cf8 \strokec8 :\cf5 \strokec5  num1\cf8 \strokec8 ,\cf5 \cb1 \strokec5 \
-\cb3                 num2\cf8 \strokec8 :\cf5 \strokec5  num2\cf8 \strokec8 ,\cf5 \cb1 \strokec5 \
-\cb3                 answer\cf8 \strokec8 :\cf5 \strokec5  correctAnswer\cb1 \
-\cb3             \cf8 \strokec8 \};\cf5 \cb1 \strokec5 \
-\
-\cb3             questionArea\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 `\cf8 \strokec8 $\{\cf5 \strokec5 num1\cf8 \strokec8 \}\cf9 \strokec9  \'d7 \cf8 \strokec8 $\{\cf5 \strokec5 num2\cf8 \strokec8 \}\cf9 \strokec9  = ?`\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             generateOptions\cf8 \strokec8 (\cf5 \strokec5 correctAnswer\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             feedbackArea\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 '
-\f1 \'82\'b1\'82\'bd\'82\'a6\'82\'cd\'82\'c7\'82\'ea\'82\'a9\'82\'c8\'81\'48
-\f0 '\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3             feedbackArea\cf8 \strokec8 .\cf5 \strokec5 className \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 'feedback text-gray-600'\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'83\'66\'83\'74\'83\'48\'83\'8b\'83\'67\'82\'cc\'83\'74\'83\'42\'81\'5b\'83\'68\'83\'6f\'83\'62\'83\'4e\'83\'58\'83\'5e\'83\'43\'83\'8b
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             nextButton\cf8 \strokec8 .\cf5 \strokec5 disabled \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8e\'9f\'82\'cc\'96\'e2\'91\'e8\'83\'7b\'83\'5e\'83\'93\'82\'f0\'94\'f1\'8a\'88\'90\'ab\'89\'bb
-\f0 \cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf12 \strokec12 function\cf5 \strokec5  generateOptions\cf8 \strokec8 (\cf5 \strokec5 correctAnswer\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             optionsContainer\cf8 \strokec8 .\cf5 \strokec5 innerHTML \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 ''\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8a\'f9\'91\'b6\'82\'cc\'91\'49\'91\'f0\'8e\'88\'82\'f0\'83\'4e\'83\'8a\'83\'41
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  options \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 new\cf5 \strokec5  \cf14 \strokec14 Set\cf8 \strokec8 ();\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8f\'64\'95\'a1\'82\'f0\'94\'f0\'82\'af\'82\'e9\'82\'bd\'82\'df\'82\'c9
-\f0 Set
-\f1 \'82\'f0\'8e\'67\'97\'70
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             options\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf5 \strokec5 correctAnswer\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3             \cf10 \strokec10 // 
-\f1 \'95\'73\'90\'b3\'89\'f0\'82\'cc\'91\'49\'91\'f0\'8e\'88\'82\'f0\'90\'b6\'90\'ac
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 while\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 options\cf8 \strokec8 .\cf5 \strokec5 size \cf8 \strokec8 <\cf5 \strokec5  \cf13 \strokec13 3\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  num1 \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 random\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 9\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  num2 \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 floor\cf8 \strokec8 (\cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 random\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 *\cf5 \strokec5  \cf13 \strokec13 9\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 +\cf5 \strokec5  \cf13 \strokec13 1\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  wrongAnswer \cf8 \strokec8 =\cf5 \strokec5  num1 \cf8 \strokec8 *\cf5 \strokec5  num2\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 wrongAnswer \cf8 \strokec8 !==\cf5 \strokec5  correctAnswer\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'90\'b3\'89\'f0\'82\'c6\'88\'d9\'82\'c8\'82\'e9\'8f\'ea\'8d\'87\'82\'cc\'82\'dd\'92\'c7\'89\'c1
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                     options\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf5 \strokec5 wrongAnswer\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3             \cf10 \strokec10 // Set
-\f1 \'82\'f0\'94\'7a\'97\'f1\'82\'c9\'95\'cf\'8a\'b7\'82\'b5\'81\'41\'83\'56\'83\'83\'83\'62\'83\'74\'83\'8b
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  shuffledOptions \cf8 \strokec8 =\cf5 \strokec5  \cf14 \strokec14 Array\cf8 \strokec8 .\cf12 \strokec12 from\cf8 \strokec8 (\cf5 \strokec5 options\cf8 \strokec8 ).\cf5 \strokec5 sort\cf8 \strokec8 (()\cf5 \strokec5  \cf8 \strokec8 =>\cf5 \strokec5  \cf14 \strokec14 Math\cf8 \strokec8 .\cf5 \strokec5 random\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 -\cf5 \strokec5  \cf13 \strokec13 0.5\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\
-\cb3             shuffledOptions\cf8 \strokec8 .\cf5 \strokec5 forEach\cf8 \strokec8 (\cf5 \strokec5 option \cf8 \strokec8 =>\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 const\cf5 \strokec5  button \cf8 \strokec8 =\cf5 \strokec5  document\cf8 \strokec8 .\cf5 \strokec5 createElement\cf8 \strokec8 (\cf9 \strokec9 'button'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 button\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  option\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 button\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf9 \strokec9 'default-style'\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'92\'ca\'8f\'ed\'8e\'9e\'82\'cc\'83\'58\'83\'5e\'83\'43\'83\'8b
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 button\cf8 \strokec8 .\cf5 \strokec5 addEventListener\cf8 \strokec8 (\cf9 \strokec9 'click'\cf8 \strokec8 ,\cf5 \strokec5  \cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 =>\cf5 \strokec5  checkAnswer\cf8 \strokec8 (\cf5 \strokec5 option\cf8 \strokec8 ,\cf5 \strokec5  button\cf8 \strokec8 ));\cf5 \cb1 \strokec5 \
-\cb3                 optionsContainer\cf8 \strokec8 .\cf5 \strokec5 appendChild\cf8 \strokec8 (\cf5 \strokec5 button\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \});\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf12 \strokec12 function\cf5 \strokec5  checkAnswer\cf8 \strokec8 (\cf5 \strokec5 selectedAnswer\cf8 \strokec8 ,\cf5 \strokec5  buttonElement\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 answerSelected\cf8 \strokec8 )\cf5 \strokec5  \cf12 \strokec12 return\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8a\'f9\'82\'c9\'89\'f1\'93\'9a\'82\'aa\'91\'49\'91\'f0\'82\'b3\'82\'ea\'82\'c4\'82\'a2\'82\'bd\'82\'e7\'89\'bd\'82\'e0\'82\'b5\'82\'c8\'82\'a2
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             answerSelected \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\
-\cb3             questionsAttempted\cf8 \strokec8 ++;\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 const\cf5 \strokec5  allButtons \cf8 \strokec8 =\cf5 \strokec5  optionsContainer\cf8 \strokec8 .\cf5 \strokec5 querySelectorAll\cf8 \strokec8 (\cf9 \strokec9 'button'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             allButtons\cf8 \strokec8 .\cf5 \strokec5 forEach\cf8 \strokec8 (\cf5 \strokec5 btn \cf8 \strokec8 =>\cf5 \strokec5  btn\cf8 \strokec8 .\cf5 \strokec5 disabled \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 true\cf8 \strokec8 );\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'91\'53\'82\'c4\'82\'cc\'83\'7b\'83\'5e\'83\'93\'82\'f0\'94\'f1\'8a\'88\'90\'ab\'89\'bb
-\f0 \cf5 \cb1 \strokec5 \
-\
-\cb3             \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 selectedAnswer \cf8 \strokec8 ===\cf5 \strokec5  currentQuestion\cf8 \strokec8 .\cf5 \strokec5 answer\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 score\cf8 \strokec8 ++;\cf5 \cb1 \strokec5 \
-\cb3                 feedbackArea\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 '
-\f2 \uc0\u55356 \u57225 
-\f0  
-\f1 \'83\'73\'83\'93\'83\'7c\'81\'5b\'83\'93\'81\'49\'82\'a0\'82\'bd\'82\'e8\'81\'49
-\f0  
-\f2 \uc0\u55356 \u57225 
-\f0 '\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 feedbackArea\cf8 \strokec8 .\cf5 \strokec5 className \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 'feedback text-green-500 font-bold'\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 buttonElement\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 remove\cf8 \strokec8 (\cf9 \strokec9 'default-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 buttonElement\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf9 \strokec9 'correct-answer-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 correctSound\cf8 \strokec8 .\cf5 \strokec5 src\cf8 \strokec8 )\cf5 \strokec5  correctSound\cf8 \strokec8 .\cf5 \strokec5 play\cf8 \strokec8 ().\cf12 \strokec12 catch\cf8 \strokec8 (\cf5 \strokec5 e \cf8 \strokec8 =>\cf5 \strokec5  console\cf8 \strokec8 .\cf5 \strokec5 log\cf8 \strokec8 (\cf9 \strokec9 "Audio play failed:"\cf8 \strokec8 ,\cf5 \strokec5  e\cf8 \strokec8 ));\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \}\cf5 \strokec5  \cf12 \strokec12 else\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 feedbackArea\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 '
-\f2 \uc0\u55357 \u56866 
-\f0  
-\f1 \'82\'b4\'82\'f1\'82\'cb\'82\'f1\'81\'49\'82\'cd\'82\'b8\'82\'ea\'81\'49
-\f0  
-\f2 \uc0\u55357 \u56866 
-\f0 '\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 feedbackArea\cf8 \strokec8 .\cf5 \strokec5 className \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 'feedback text-red-500 font-bold'\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3                 buttonElement\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 remove\cf8 \strokec8 (\cf9 \strokec9 'default-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 buttonElement\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf9 \strokec9 'wrong-answer-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                 \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 wrongSound\cf8 \strokec8 .\cf5 \strokec5 src\cf8 \strokec8 )\cf5 \strokec5  wrongSound\cf8 \strokec8 .\cf5 \strokec5 play\cf8 \strokec8 ().\cf12 \strokec12 catch\cf8 \strokec8 (\cf5 \strokec5 e \cf8 \strokec8 =>\cf5 \strokec5  console\cf8 \strokec8 .\cf5 \strokec5 log\cf8 \strokec8 (\cf9 \strokec9 "Audio play failed:"\cf8 \strokec8 ,\cf5 \strokec5  e\cf8 \strokec8 ));\cf5 \cb1 \strokec5 \
-\
-\cb3                 \cf10 \strokec10 // 
-\f1 \'90\'b3\'89\'f0\'82\'cc\'91\'49\'91\'f0\'8e\'88\'82\'f0\'83\'6e\'83\'43\'83\'89\'83\'43\'83\'67
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 allButtons\cf8 \strokec8 .\cf5 \strokec5 forEach\cf8 \strokec8 (\cf5 \strokec5 btn \cf8 \strokec8 =>\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                     \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (\cf5 \strokec5 parseInt\cf8 \strokec8 (\cf5 \strokec5 btn\cf8 \strokec8 .\cf5 \strokec5 textContent\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 ===\cf5 \strokec5  currentQuestion\cf8 \strokec8 .\cf5 \strokec5 answer\cf8 \strokec8 )\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                         btn\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 remove\cf8 \strokec8 (\cf9 \strokec9 'default-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                         btn\cf8 \strokec8 .\cf5 \strokec5 classList\cf8 \strokec8 .\cf5 \strokec5 add\cf8 \strokec8 (\cf9 \strokec9 'correct-answer-style'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3                     \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3                 \cf8 \strokec8 \});\cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\cb3             updateScore\cf8 \strokec8 ();\cf5 \cb1 \strokec5 \
-\cb3             nextButton\cf8 \strokec8 .\cf5 \strokec5 disabled \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 false\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'8e\'9f\'82\'cc\'96\'e2\'91\'e8\'83\'7b\'83\'5e\'83\'93\'82\'f0\'8a\'88\'90\'ab\'89\'bb
-\f0 \cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf12 \strokec12 function\cf5 \strokec5  updateScore\cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             scoreArea\cf8 \strokec8 .\cf5 \strokec5 textContent \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 `
-\f1 \'83\'58\'83\'52\'83\'41
-\f0 : \cf8 \strokec8 $\{\cf5 \strokec5 score\cf8 \strokec8 \}\cf9 \strokec9  / \cf8 \strokec8 $\{\cf5 \strokec5 questionsAttempted\cf8 \strokec8 \}\cf9 \strokec9 `\cf8 \strokec8 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \}\cf5 \cb1 \strokec5 \
-\
-\cb3         nextButton\cf8 \strokec8 .\cf5 \strokec5 addEventListener\cf8 \strokec8 (\cf9 \strokec9 'click'\cf8 \strokec8 ,\cf5 \strokec5  \cf8 \strokec8 ()\cf5 \strokec5  \cf8 \strokec8 =>\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf12 \strokec12 if\cf5 \strokec5  \cf8 \strokec8 (!\cf5 \strokec5 answerSelected \cf8 \strokec8 &&\cf5 \strokec5  questionsAttempted \cf8 \strokec8 >\cf5 \strokec5  \cf13 \strokec13 0\cf8 \strokec8 )\cf5 \strokec5  \cf12 \strokec12 return\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'82\'dc\'82\'be\'89\'f1\'93\'9a\'82\'b5\'82\'c4\'82\'a2\'82\'c8\'82\'a2\'8f\'ea\'8d\'87\'82\'cd\'90\'69\'82\'df\'82\'c8\'82\'a2\'81\'69\'8f\'89\'89\'f1\'8b\'4e\'93\'ae\'8e\'9e\'82\'f0\'8f\'9c\'82\'ad\'81\'6a
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             generateQuestion\cf8 \strokec8 ();\cf5 \cb1 \strokec5 \
-\cb3              \cf12 \strokec12 const\cf5 \strokec5  allButtons \cf8 \strokec8 =\cf5 \strokec5  optionsContainer\cf8 \strokec8 .\cf5 \strokec5 querySelectorAll\cf8 \strokec8 (\cf9 \strokec9 'button'\cf8 \strokec8 );\cf5 \cb1 \strokec5 \
-\cb3             allButtons\cf8 \strokec8 .\cf5 \strokec5 forEach\cf8 \strokec8 (\cf5 \strokec5 btn \cf8 \strokec8 =>\cf5 \strokec5  \cf8 \strokec8 \{\cf5 \cb1 \strokec5 \
-\cb3                 btn\cf8 \strokec8 .\cf5 \strokec5 disabled \cf8 \strokec8 =\cf5 \strokec5  \cf12 \strokec12 false\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'83\'7b\'83\'5e\'83\'93\'82\'f0\'8d\'c4\'93\'78\'8a\'88\'90\'ab\'89\'bb
-\f0 \cf5 \cb1 \strokec5 \
-\cb3                 btn\cf8 \strokec8 .\cf5 \strokec5 className \cf8 \strokec8 =\cf5 \strokec5  \cf9 \strokec9 'options button default-style'\cf8 \strokec8 ;\cf5 \strokec5  \cf10 \strokec10 // 
-\f1 \'83\'58\'83\'5e\'83\'43\'83\'8b\'82\'f0\'83\'8a\'83\'5a\'83\'62\'83\'67
-\f0 \cf5 \cb1 \strokec5 \
-\cb3             \cf8 \strokec8 \});\cf5 \cb1 \strokec5 \
-\cb3         \cf8 \strokec8 \});\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf10 \strokec10 // 
-\f1 \'8f\'89\'8a\'fa\'96\'e2\'91\'e8\'82\'cc\'90\'b6\'90\'ac
-\f0 \cf5 \cb1 \strokec5 \
-\cb3         generateQuestion\cf8 \strokec8 ();\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 </\cf2 \strokec2 script\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 </\cf2 \strokec2 body\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\cf6 \cb3 \strokec6 </\cf2 \strokec2 html\cf6 \strokec6 >\cf5 \cb1 \strokec5 \
-\
-}
+        /* 効果音用の非表示要素 */
+        .audio-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1 class="text-4xl font-bold mb-8 text-blue-700">九九クイズチャレンジ！</h1>
+        
+        <div id="question-area" class="question-area">
+            </div>
+        
+        <div id="options" class="options grid grid-cols-1 gap-4">
+            </div>
+        
+        <div id="feedback" class="feedback">
+            </div>
+        
+        <div id="score" class="score">
+            スコア: 0 / 0
+        </div>
+        
+        <button id="next-button" class="next-button" disabled>つぎのもんだいへ</button>
+    </div>
+
+    <div class="audio-container">
+        <audio id="correct-sound" src=""></audio> <audio id="wrong-sound" src=""></audio> </div>
+
+    <script>
+        const questionArea = document.getElementById('question-area');
+        const optionsContainer = document.getElementById('options');
+        const feedbackArea = document.getElementById('feedback');
+        const scoreArea = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const correctSound = document.getElementById('correct-sound');
+        const wrongSound = document.getElementById('wrong-sound');
+
+        let currentQuestion = {};
+        let score = 0;
+        let questionsAttempted = 0;
+        let answerSelected = false; // 回答が選択されたかどうかを追跡
+
+        // 効果音の生成 (Tone.jsの代替としてData URIを使用)
+        function generateBeepDataURI(frequency = 440, duration = 0.1, type = "sine") {
+            const sampleRate = 44100;
+            const numSamples = Math.floor(sampleRate * duration);
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const buffer = audioContext.createBuffer(1, numSamples, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            for (let i = 0; i < numSamples; i++) {
+                const time = i / sampleRate;
+                if (type === "sine") {
+                    data[i] = Math.sin(2 * Math.PI * frequency * time) * 0.5; // 振幅を0.5に
+                } else if (type === "square") {
+                    data[i] = (Math.sin(2 * Math.PI * frequency * time) > 0 ? 1 : -1) * 0.3; // 振幅を0.3に
+                } else if (type === "sawtooth") {
+                    data[i] = (2 * (time * frequency - Math.floor(0.5 + time * frequency))) * 0.3; // 振幅を0.3に
+                } else if (type === "triangle") {
+                    data[i] = (2 * Math.abs(2 * (time * frequency - Math.floor(0.5 + time * frequency))) -1) * 0.3; // 振幅を0.3に
+                }
+            }
+            
+            // WAVヘッダーの作成
+            const writeString = (view, offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+
+            const bufferLength = buffer.length * 2; // 16-bit PCM
+            const headerLength = 44;
+            const totalLength = headerLength + bufferLength;
+            const wavBuffer = new ArrayBuffer(totalLength);
+            const view = new DataView(wavBuffer);
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, totalLength - 8, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true);  // AudioFormat (1 for PCM)
+            view.setUint16(22, 1, true);  // NumChannels (1 for mono)
+            view.setUint32(24, sampleRate, true); // SampleRate
+            view.setUint32(28, sampleRate * 2, true); // ByteRate (SampleRate * NumChannels * BitsPerSample/8)
+            view.setUint16(32, 2, true);  // BlockAlign (NumChannels * BitsPerSample/8)
+            view.setUint16(34, 16, true); // BitsPerSample (16-bit)
+            writeString(view, 36, 'data');
+            view.setUint32(40, bufferLength, true);
+
+            // PCMデータ書き込み
+            let offset = 44;
+            for (let i = 0; i < buffer.length; i++, offset += 2) {
+                const s = Math.max(-1, Math.min(1, data[i]));
+                view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+            }
+            
+            const blob = new Blob([view], { type: 'audio/wav' });
+            return URL.createObjectURL(blob);
+        }
+
+        // 効果音を設定
+        correctSound.src = generateBeepDataURI(660, 0.2, "triangle"); // 少し高めの音
+        wrongSound.src = generateBeepDataURI(220, 0.3, "sawtooth"); // 低めのブザー音
+
+
+        function generateQuestion() {
+            answerSelected = false; // 新しい問題でリセット
+            const num1 = Math.floor(Math.random() * 9) + 1; // 1から9までの数
+            const num2 = Math.floor(Math.random() * 9) + 1; // 1から9までの数
+            const correctAnswer = num1 * num2;
+
+            currentQuestion = {
+                num1: num1,
+                num2: num2,
+                answer: correctAnswer
+            };
+
+            questionArea.textContent = `${num1} × ${num2} = ?`;
+            generateOptions(correctAnswer);
+            feedbackArea.textContent = 'こたえはどれかな？';
+            feedbackArea.className = 'feedback text-gray-600'; // デフォルトのフィードバックスタイル
+            nextButton.disabled = true; // 次の問題ボタンを非活性化
+        }
+
+        function generateOptions(correctAnswer) {
+            optionsContainer.innerHTML = ''; // 既存の選択肢をクリア
+            const options = new Set(); // 重複を避けるためにSetを使用
+            options.add(correctAnswer);
+
+            // 不正解の選択肢を生成
+            while (options.size < 3) {
+                const num1 = Math.floor(Math.random() * 9) + 1;
+                const num2 = Math.floor(Math.random() * 9) + 1;
+                const wrongAnswer = num1 * num2;
+                if (wrongAnswer !== correctAnswer) { // 正解と異なる場合のみ追加
+                    options.add(wrongAnswer);
+                }
+            }
+
+            // Setを配列に変換し、シャッフル
+            const shuffledOptions = Array.from(options).sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('default-style'); // 通常時のスタイル
+                button.addEventListener('click', () => checkAnswer(option, button));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedAnswer, buttonElement) {
+            if (answerSelected) return; // 既に回答が選択されていたら何もしない
+            answerSelected = true;
+
+            questionsAttempted++;
+            const allButtons = optionsContainer.querySelectorAll('button');
+            allButtons.forEach(btn => btn.disabled = true); // 全てのボタンを非活性化
+
+            if (selectedAnswer === currentQuestion.answer) {
+                score++;
+                feedbackArea.textContent = '🎉 ピンポーン！あたり！ 🎉';
+                feedbackArea.className = 'feedback text-green-500 font-bold';
+                buttonElement.classList.remove('default-style');
+                buttonElement.classList.add('correct-answer-style');
+                if (correctSound.src) correctSound.play().catch(e => console.log("Audio play failed:", e));
+            } else {
+                feedbackArea.textContent = '😢 ざんねん！はずれ！ 😢';
+                feedbackArea.className = 'feedback text-red-500 font-bold';
+                buttonElement.classList.remove('default-style');
+                buttonElement.classList.add('wrong-answer-style');
+                if (wrongSound.src) wrongSound.play().catch(e => console.log("Audio play failed:", e));
+
+                // 正解の選択肢をハイライト
+                allButtons.forEach(btn => {
+                    if (parseInt(btn.textContent) === currentQuestion.answer) {
+                        btn.classList.remove('default-style');
+                        btn.classList.add('correct-answer-style');
+                    }
+                });
+            }
+            updateScore();
+            nextButton.disabled = false; // 次の問題ボタンを活性化
+        }
+
+        function updateScore() {
+            scoreArea.textContent = `スコア: ${score} / ${questionsAttempted}`;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (!answerSelected && questionsAttempted > 0) return; // まだ回答していない場合は進めない（初回起動時を除く）
+            generateQuestion();
+             const allButtons = optionsContainer.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                btn.disabled = false; // ボタンを再度活性化
+                btn.className = 'options button default-style'; // スタイルをリセット
+            });
+        });
+
+        // 初期問題の生成
+        generateQuestion();
+    </script>
+</body>
+</html>
